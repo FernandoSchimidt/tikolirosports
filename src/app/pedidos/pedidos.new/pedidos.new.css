@@ -1,0 +1,46 @@
+.container {
+  margin: 20px;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 48%;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.small-field {
+  width: 80px;
+}
+
+.itens-lista {
+  margin-top: 15px;
+}
+
+.actions {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+}

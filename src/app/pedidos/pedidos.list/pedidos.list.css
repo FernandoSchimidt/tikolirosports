@@ -1,0 +1,132 @@
+/* container geral */
+.container {
+  padding: 20px;
+}
+
+/* card */
+.example-card {
+  width: 100%;
+}
+
+/* header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* botões do header */
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* filtro */
+.filtro-datas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+/* largura dos campos */
+.filtro-datas mat-form-field {
+  min-width: 180px;
+}
+
+/* tabela */
+.full-width {
+  width: 100%;
+}
+
+/* status base */
+.status {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* status específicos */
+
+.status.pendente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status.pago {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status.entregue {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+/* ações da tabela */
+td button {
+  margin-right: 5px;
+}
+
+/* responsividade */
+@media (max-width: 768px) {
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .filtro-datas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filtro-datas mat-form-field {
+    width: 100%;
+  }
+
+}
+
+/* BOTÕES DE AÇÃO */
+td button {
+  transition: all 0.2s ease-in-out;
+}
+
+/* VISUALIZAR */
+button[color="primary"]:hover {
+  background-color: #1976d2;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* PAGAMENTO */
+button[color="accent"]:hover {
+  background-color: #7b1fa2;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* ENTREGUE */
+button[color="warn"]:hover {
+  background-color: #00a727;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* efeito geral */
+td button:hover mat-icon {
+  transform: scale(1.15);
+}
+
+td button mat-icon {
+  transition: transform 0.2s ease;
+}

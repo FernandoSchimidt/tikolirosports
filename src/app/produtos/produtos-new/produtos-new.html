@@ -1,0 +1,139 @@
+<div class="container">
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-title>{{titulo}}</mat-card-title>
+
+    <form [formGroup]="form" (ngSubmit)="salvar()">
+
+      <div class="form-row">
+        <div class="half-width">
+
+          <label>Imagem do Produto</label><br>
+
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+
+          <!-- Preview -->
+          <div *ngIf="previewUrl" style="margin-top:10px;">
+            <img [src]="previewUrl" width="150" style="border-radius:8px; object-fit:cover;" />
+          </div>
+
+        </div>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="nome" placeholder="Ex: Esportes">
+          <mat-error *ngIf="form.get('nome')?.hasError('required')">
+            O nome é obrigatório
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="third-width">
+          <mat-label>Categoria</mat-label>
+          <mat-select formControlName="categoria" [compareWith]="compareCategoria">
+            <mat-option *ngFor="let categoria of categorias" [value]="categoria">
+              {{ categoria.nome }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('categoria')?.hasError('required')">
+            A categoria é obrigatória
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="third-width">
+          <mat-label>Time</mat-label>
+          <mat-select formControlName="time" [compareWith]="compareTime">
+            <mat-option *ngFor="let time of times" [value]="time">
+              {{ time.nome }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('time')?.hasError('required')">
+            O time é obrigatório
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="third-width">
+          <mat-label>Tamanho</mat-label>
+          <mat-select formControlName="tamanho">
+            <mat-option *ngFor="let tamanho of tamanhos" [value]="tamanho">
+              {{ tamanho }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('tamanho')?.hasError('required')">
+            O tamanho é obrigatório
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="third-width">
+          <mat-label>Modelo</mat-label>
+          <mat-select formControlName="modelo">
+            <mat-option *ngFor="let modelo of modelos" [value]="modelo">
+              {{ modelo }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('modelo')?.hasError('required')">
+            O modelo é obrigatório
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="third-width">
+          <mat-label>Versão</mat-label>
+          <mat-select formControlName="versao">
+            <mat-option *ngFor="let versao of versao" [value]="versao">
+              {{ versao }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('versao')?.hasError('required')">
+            A versão é obrigatória
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="third-width">
+          <mat-label>Ano de Lançamento</mat-label>
+          <input matInput type="number" formControlName="anoLancamento" placeholder="Ex: 2025" />
+          <mat-error *ngIf="form.get('anoLancamento')?.hasError('required')">
+            O ano é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Preço Custo</mat-label>
+          <input matInput formControlName="precoCusto" type="number" placeholder="Ex: 100,00">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Preço Venda</mat-label>
+          <input matInput formControlName="precoVenda" type="number" placeholder="Ex: 150,00">
+        </mat-form-field>
+
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Estoque Atual</mat-label>
+          <input matInput formControlName="estoqueAtual" type="number" placeholder="Ex: 10">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Estoque Minimo</mat-label>
+          <input matInput formControlName="estoqueMinimo" type="number" placeholder="Ex: 10">
+        </mat-form-field>
+
+      </div>
+
+      <div class="actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+          Salvar
+        </button>
+        <button mat-button type="button" (click)="cancelar()">Cancelar</button>
+      </div>
+    </form>
+  </mat-card>
+</div>
+<div *ngIf="!previewUrl && idProduto && form.value.imagemUrl">
+  <img [src]="'http://localhost:8080' + form.value.imagemUrl" width="150" style="border-radius:8px; object-fit:cover;">
+</div>

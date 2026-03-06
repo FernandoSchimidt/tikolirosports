@@ -1,0 +1,140 @@
+<div class="container">
+
+  <mat-card class="example-card" appearance="outlined">
+
+    <!-- HEADER -->
+    <mat-card-header class="card-header">
+      <mat-card-title>Pedidos</mat-card-title>
+
+      <div class="header-actions">
+        <button mat-raised-button color="primary" (click)="novoPedido()">
+          <mat-icon>add</mat-icon>
+          Novo Pedido
+        </button>
+
+        <button mat-button color="accent" (click)="carregarPedidos()">
+          <mat-icon>refresh</mat-icon>
+          Atualizar
+        </button>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div class="filtro-datas">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cliente</mat-label>
+          <mat-select [(ngModel)]="clienteSelecionado">
+            <mat-option [value]="null">Todos</mat-option>
+            <mat-option *ngFor="let c of clientes" [value]="c.id">
+              {{ c.nome }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Data inicial</mat-label>
+          <input matInput [matDatepicker]="pickerInicio" [(ngModel)]="dataInicio">
+          <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+          <mat-datepicker #pickerInicio></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Data final</mat-label>
+          <input matInput [matDatepicker]="pickerFim" [(ngModel)]="dataFim">
+          <mat-datepicker-toggle matSuffix [for]="pickerFim"></mat-datepicker-toggle>
+          <mat-datepicker #pickerFim></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="filtrarPedidos()">
+          <mat-icon>search</mat-icon>
+          Filtrar
+        </button>
+
+        <button mat-button (click)="limparFiltro()">
+          <mat-icon>clear</mat-icon>
+          Limpar
+        </button>
+
+      </div>
+
+
+      <!-- TABELA -->
+      <table mat-table [dataSource]="pedidos" class="mat-elevation-z8 full-width">
+
+        <!-- CLIENTE -->
+        <ng-container matColumnDef="cliente">
+          <th mat-header-cell *matHeaderCellDef>Cliente</th>
+          <td mat-cell *matCellDef="let p">
+            {{ p.cliente?.nome }}
+          </td>
+        </ng-container>
+
+        <!-- DATA -->
+        <ng-container matColumnDef="data">
+          <th mat-header-cell *matHeaderCellDef>Data</th>
+          <td mat-cell *matCellDef="let p">
+            {{ p.dataPedido | date:'dd/MM/yyyy HH:mm' }}
+          </td>
+        </ng-container>
+
+        <!-- STATUS -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let p">
+            <span class="status" [ngClass]="p.status?.toLowerCase()">
+              {{ p.status }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- VALOR TOTAL -->
+        <ng-container matColumnDef="valorTotal">
+          <th mat-header-cell *matHeaderCellDef>Total</th>
+          <td mat-cell *matCellDef="let p">
+            {{ p.valorTotal | currency:'BRL' }}
+          </td>
+        </ng-container>
+
+        <!-- VALOR PAGO -->
+        <ng-container matColumnDef="valorPago">
+          <th mat-header-cell *matHeaderCellDef>Pago</th>
+          <td mat-cell *matCellDef="let p">
+            {{ p.valorPago | currency:'BRL' }}
+          </td>
+        </ng-container>
+
+        <!-- AÇÕES -->
+        <ng-container matColumnDef="acoes">
+          <th mat-header-cell *matHeaderCellDef>Ações</th>
+          <td mat-cell *matCellDef="let p">
+
+            <button mat-icon-button color="primary" (click)="visualizar(p)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+
+            <button mat-icon-button color="accent" (click)="registrarPagamento(p)">
+              <mat-icon>attach_money</mat-icon>
+            </button>
+
+            <button mat-icon-button color="warn" (click)="marcarEntregue(p)" [disabled]="p.status === 'ENTREGUE'">
+              <mat-icon>check_circle</mat-icon>
+            </button>
+
+          </td>
+        </ng-container>
+
+        <!-- HEADER -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+        <!-- ROW -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      </table>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

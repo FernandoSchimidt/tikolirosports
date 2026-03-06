@@ -1,0 +1,55 @@
+<div class="container">
+    <mat-card appearance="outlined">
+        <mat-card-title>{{ titulo }}</mat-card-title>
+
+        <form [formGroup]="form" (ngSubmit)="salvar()">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Nome</mat-label>
+                <input matInput formControlName="nome" placeholder="Ex: Esportes">
+                <mat-error *ngIf="form.get('nome')?.hasError('required')">
+                    O nome é obrigatório
+                </mat-error>
+            </mat-form-field>
+            <div style="display: flex;justify-content: space-between; gap: 16px;">
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Pais</mat-label>
+                    <mat-select formControlName="pais" [compareWith]="comparePais">
+                        <mat-option *ngFor="let pais of paises" [value]="pais">
+                            {{ pais.nome }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.get('pais')?.hasError('required')">
+                        O pais é obrigatório
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Categoria</mat-label>
+                    <mat-select formControlName="categoria" [compareWith]="compareCategoria">
+                        <mat-option *ngFor="let cat of categorias" [value]="cat">
+                            {{ cat.nome }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.get('categoria')?.hasError('required')">
+                        A categoria é obrigatória
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Campeonato</mat-label>
+                <input matInput formControlName="campeonato" placeholder="Ex: Campeonato Brasileiro">
+                <mat-error *ngIf="form.get('campeonato')?.hasError('required')">
+                    O campeonato é obrigatório
+                </mat-error>
+            </mat-form-field>
+
+            <div class="actions">
+                <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+                    Salvar
+                </button>
+                <button mat-button type="button" (click)="cancelar()">Cancelar</button>
+            </div>
+        </form>
+    </mat-card>
+</div>

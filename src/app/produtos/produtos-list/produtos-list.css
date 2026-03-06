@@ -1,0 +1,95 @@
+/* CONTAINER PRINCIPAL */
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
+/* CARD */
+.example-card {
+  width: 95%;
+  max-width: 1400px;
+  border-radius: 12px;
+}
+
+/* HEADER */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* FILTRO */
+.filter-field {
+  width: 100%;
+  max-width: 450px;
+  margin-bottom: 20px;
+}
+
+/* CONTAINER DA TABELA (RESOLVE O PROBLEMA) */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* TABELA */
+.demo-table {
+  width: 100%;
+  min-width: 1200px;
+  border-collapse: collapse;
+}
+
+/* HEADER */
+th.mat-header-cell {
+  font-weight: 600;
+  padding: 14px;
+  white-space: nowrap;
+}
+
+/* CELULAS */
+td.mat-cell {
+  padding: 14px;
+  white-space: nowrap;
+}
+
+/* IMAGEM */
+table img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* HOVER */
+tr.mat-row:hover {
+  background-color: #f7f7f7;
+}
+
+/* AÇÕES */
+td.mat-column-actions {
+  white-space: nowrap;
+}
+
+td.mat-column-actions button {
+  margin-right: 8px;
+}
+
+/* PAGINADOR */
+mat-paginator {
+  margin-top: 20px;
+}
+
+.produto-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+}
+
+.produto-img:hover {
+  transform: scale(2);
+  z-index: 10;
+  position: relative;
+}

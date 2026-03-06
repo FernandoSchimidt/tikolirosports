@@ -1,0 +1,88 @@
+<div class="container">
+
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header class="card-header">
+      <mat-card-title>Movimento de Estoque</mat-card-title>
+      <span class="spacer"></span>
+      <button mat-raised-button color="primary" (click)="novaMovimentacao()">
+        Nova Movimentação
+      </button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Formulário -->
+      <form [formGroup]="form" (ngSubmit)="salvar()">
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="field">
+            <mat-label>Produto</mat-label>
+            <mat-select formControlName="produto">
+              <mat-option *ngFor="let p of produtos" [value]="p.id">{{ p.nome }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="field">
+            <mat-label>Tipo</mat-label>
+            <mat-select formControlName="tipo">
+              <mat-option value="ENTRADA">Entrada</mat-option>
+              <mat-option value="SAIDA">Saída</mat-option>
+              <mat-option value="AJUSTE">Ajuste</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="field">
+            <mat-label>Quantidade</mat-label>
+            <input type="number" matInput formControlName="quantidade" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="field">
+            <mat-label>Descrição</mat-label>
+            <input matInput formControlName="descricao" placeholder="Ex: Reposição de estoque" />
+          </mat-form-field>
+        </div>
+
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+            Registrar Movimento
+          </button>
+          <button mat-button color="warn" type="button" (click)="limpar()">Limpar</button>
+        </div>
+      </form>
+
+      <!-- Histórico -->
+      <h3>Histórico de Movimentos</h3>
+      <table mat-table [dataSource]="movimentos" class="mat-elevation-z8 full-width">
+        <ng-container matColumnDef="data">
+          <th mat-header-cell *matHeaderCellDef>Data</th>
+          <td mat-cell *matCellDef="let m">{{ m.dataMovimento | date:'dd/MM/yyyy HH:mm' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="tipo">
+          <th mat-header-cell *matHeaderCellDef>Tipo</th>
+          <td mat-cell *matCellDef="let m">
+            <span [ngClass]="{
+              'entrada': m.tipo === 'ENTRADA',
+              'saida': m.tipo === 'SAIDA',
+              'ajuste': m.tipo === 'AJUSTE'
+            }">{{ m.tipo }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantidade">
+          <th mat-header-cell *matHeaderCellDef>Qtd</th>
+          <td mat-cell *matCellDef="let m">{{ m.quantidade }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="descricao">
+          <th mat-header-cell *matHeaderCellDef>Descrição</th>
+          <td mat-cell *matCellDef="let m">{{ m.descricao }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['data', 'tipo', 'quantidade', 'descricao']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['data', 'tipo', 'quantidade', 'descricao']"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

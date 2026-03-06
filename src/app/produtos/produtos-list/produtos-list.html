@@ -1,0 +1,113 @@
+<div class="container">
+
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header class="card-header">
+            <mat-card-title>Estoque Produtos</mat-card-title>
+            <div class="demo-button-container">
+                <button mat-raised-button color="primary" (click)="novoProduto()" class="demo-button">
+                    Novo Produto
+                </button>
+            </div>
+        </mat-card-header>
+        <mat-card-content class="content">
+            <mat-form-field appearance="outline" class="filter-field">
+                <mat-label>Filtrar pelo Nome</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex: Corinthians" #input />
+            </mat-form-field>
+            <div class="table-container">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table" matSort
+                    (matSortChange)="onSortChange($event)">
+                    <!-- Imagem Column -->
+                    <ng-container matColumnDef="imagem">
+                        <th mat-header-cell *matHeaderCellDef>Imagem</th>
+                        <td mat-cell *matCellDef="let produto">
+                            <img mat-card-image class="produto-img" [src]="getImagemUrl(produto)" width="60" height="60"
+                                style="object-fit: cover; border-radius: 8px;">
+                        </td>
+                    </ng-container>
+
+                    <!-- Nome Column -->
+                    <ng-container matColumnDef="nome">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+                        <td mat-cell *matCellDef="let produto">{{produto.nome}}</td>
+                    </ng-container>
+
+                    <!-- Time Column -->
+                    <ng-container matColumnDef="time">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
+                        <td mat-cell *matCellDef="let produto">{{produto.time.nome}}</td>
+                    </ng-container>
+
+                    <!-- tamanho Column -->
+                    <ng-container matColumnDef="tamanho">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tamanho</th>
+                        <td mat-cell *matCellDef="let produto">{{produto.tamanho}}</td>
+                    </ng-container>
+
+                    <!-- modelo Column -->
+                    <ng-container matColumnDef="modelo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Modelo</th>
+                        <td mat-cell *matCellDef="let produto">{{produto.modelo}}</td>
+                    </ng-container>
+
+                    <!-- versao Column -->
+                    <ng-container matColumnDef="versao">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Versão</th>
+                        <td mat-cell *matCellDef="let produto">{{produto.versao}}</td>
+                    </ng-container>
+
+                    <!-- a Column -->
+                    <ng-container matColumnDef="anoLancamento">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ano de Lançamento</th>
+                        <td mat-cell *matCellDef="let produto">{{produto.anoLancamento }}</td>
+                    </ng-container>
+
+                    <!-- precoCusto Column -->
+                    <ng-container matColumnDef="precoCusto">
+                        <th mat-header-cell *matHeaderCellDef>Preço de Custo</th>
+                        <td mat-cell *matCellDef="let produto">{{produto.precoCusto | currency:'BRL':'symbol':'1.2-2'}}
+                        </td>
+                    </ng-container>
+                    <!-- precoVenda Column -->
+                    <ng-container matColumnDef="precoVenda">
+                        <th mat-header-cell *matHeaderCellDef>Preço de Venda</th>
+                        <td mat-cell *matCellDef="let produto">{{produto.precoVenda | currency:'BRL':'symbol':'1.2-2'}}
+                        </td>
+                    </ng-container>
+                    <!-- est Column -->
+                    <ng-container matColumnDef="estoqueAtual">
+                        <th mat-header-cell *matHeaderCellDef>Estoque Atual</th>
+                        <td mat-cell *matCellDef="let produto">{{produto.estoqueAtual}}</td>
+                    </ng-container>
+                    <!-- estoqueMinimo Column -->
+                    <ng-container matColumnDef="estoqueMinimo">
+                        <th mat-header-cell *matHeaderCellDef>Estoque Mínimo</th>
+                        <td mat-cell *matCellDef="let produto">{{produto.estoqueMinimo}}</td>
+                    </ng-container>
+                    <!-- categoria Column -->
+                    <ng-container matColumnDef="categoria">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Categoria</th>
+                        <td mat-cell *matCellDef="let produto">{{produto.categoria.nome}}</td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>Ações</th>
+                        <td mat-cell *matCellDef="let produto">
+                            <button mat-button (click)="editarProduto(produto)" color="primary">Edit</button>
+                            <button mat-button (click)="removeProduto(produto)" color="warn">Delete</button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+
+            <!-- PAGINAÇÃO -->
+            <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageIndex]="pageIndex"
+                [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)">
+            </mat-paginator>
+        </mat-card-content>
+    </mat-card>
+</div>
